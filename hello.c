@@ -307,7 +307,22 @@ int main()
 
 	unsigned short* buffer = pageFlip(backbuffer);
 	
-	Entity cube = formCube(RGB16(0, 31, 0), 20);
+	Entity* cubes = (Entity*)malloc(2*sizeof(Entity));
+	cubes[0] = formCube(RGB16(0, 31, 0), 20);
+	cubes[1] = formCube(RGB16(31, 0, 0), 10);
+	int numCubes = 2;
+	
+	while(1){
+		int i;
+		for(i = 0; i<numCubes; i++){
+			display(cubes[i], buffer);
+			cubes[i].rot.x++; cubes[i].rot.y++; cubes[i].rot.z++;			
+		}
+		buffer = pageFlip(buffer);
+		memset(buffer, 0, 40960);
+	}
+	
+	/*Entity cube = formCube(RGB16(0, 31, 0), 20);
 	int i = 10;
 	
 	while(1){
@@ -315,7 +330,7 @@ int main()
 		buffer = pageFlip(buffer);
 		cube.rot.x++; cube.rot.y++; cube.rot.z++;
 		memset(buffer, 0, 40960);	
-	}
+	}*/
 	
 	/*float projection[3][3] = {
 		{1, 0, 0},
